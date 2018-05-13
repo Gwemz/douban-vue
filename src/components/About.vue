@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-      welcome to douban!
+      关于豆瓣
   </div>
 </template>
