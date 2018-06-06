@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Movie from '@/components/Movie'
 import Event from '@/components/Event'
 import About from '@/components/About'
+import Detail from '@/components/Detail'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
     }
   ]
 })

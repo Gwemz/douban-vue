@@ -46,6 +46,7 @@ export default {
     this.loadData(this.mType);
   },
   methods: {
+    // 城市加载
     loadCityList() {
       this.$http
         .jsonp("https://api.douban.com/v2/loc/list", { params: { count: 48 } })
@@ -53,6 +54,7 @@ export default {
           this.cityList = res.body.locs;
         });
     },
+    // 电影数据加载
     loadData(type) {
       this.$http
         .jsonp("https://api.douban.com/v2/movie/" + type + "", {
