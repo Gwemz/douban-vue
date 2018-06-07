@@ -1,6 +1,8 @@
 <template>
   <div class="loading">
-      <div class="spinner"></div>
+      <i class="el-icon-loading"></i>
+      <div>拼命加载中...</div>
+      <!-- <div class="spinner"></div> -->
   </div>
 </template>
 <style scoped>
@@ -12,8 +14,17 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 1.5rem;
+  color: #ffffff;
+  z-index: 2;
+}
+.loading i {
+  font-size: 5rem;
+  color: #ffffff;
+  margin-bottom:1rem;
 }
 .spinner {
   width: 3rem;

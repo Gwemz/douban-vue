@@ -1,7 +1,11 @@
 <template>
-  <header class="header">
+<el-alert
+    title="豆瓣"
+    type="error">
+  </el-alert>
+  <!-- <header class="header">
       豆瓣
-  </header>
+  </header> -->
 </template>
 <style scoped>
 header {

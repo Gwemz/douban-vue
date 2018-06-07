@@ -1,5 +1,14 @@
 <template>
+  
   <div class="movie">
+      <div class="wrapper">
+        <ul class="content"> 
+            <li></li>
+            <li></li> 
+            <li></li>
+            <li></li> 
+        </ul>
+      </div>
       <loading v-show="isOpen" :isOpen="isOpen"></loading>
       <!-- 热映影片 -->
       <div class="movieList">
@@ -31,6 +40,7 @@
 </template>
 <script>
 import loading from "./Loading";
+import BScroll from "better-scroll";
 export default {
   name: "movie",
   components: { loading },
@@ -68,6 +78,10 @@ export default {
           this.movieList = res.body.subjects;
           this.isOpen = false;
         });
+    },
+    _initScroll() {
+      this.meunScroll = new BScroll(this.$refs.menuWrapper, {});
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
     }
   }
 };
@@ -89,7 +103,7 @@ export default {
   text-decoration: none;
   padding: 1rem;
   box-sizing: border-box;
-  color: #333333;
+  color: #606266;
 }
 .movieList div .item img {
   width: 30%;
@@ -109,7 +123,8 @@ export default {
 }
 .movieList div .item .right h3 {
   margin-top: 0;
-  color: #cf4646;
+  /* color: #cf4646; */
+  color: #303133;
   font-size: 1.3rem;
 }
 .movieList div .item .right .casts {

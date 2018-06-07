@@ -13,26 +13,11 @@
   <!-- built files will be auto injected -->
 </body>
 <script>
-  // !function (e, t) {
-  //   var r = e.documentElement
-  //     , o = "orientationchange" in window ? "orientationchange" : "resize"
-  //     , i = function () {
-  //       var e = r.clientWidth;
-  //       var t = r.clientHeight;
-  //       if (!e)
-  //         return;
-  //       if (e >= 750) {
-  //         r.style.fontSize = "100px"
-  //       } else {
-  //         r.style.fontSize = 100 * (e / 750) + "px"
-  //       }
-  //     };
-  //   i();
-  //   if (!e.addEventListener)
-  //     return;
-  //   t.addEventListener(o, i, false);
-  //   e.addEventListener("DOMContentLoaded", i, false)
-  // }(document, window);
+  var cw = document.documentElement.clientWidth;
+  if (cw > 1242) {
+    cw = 1242;
+  }
+  document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 621) + 'px';
 </script>
 
 </html>
