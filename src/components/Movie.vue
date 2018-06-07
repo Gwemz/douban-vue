@@ -4,7 +4,8 @@
       <!-- 热映影片 -->
       <div class="movieList">
           <div v-for="m in movieList">
-              <a :href="m.alt">
+              <!-- <a :href="m.alt"> -->
+              <router-link :to="{path:'/detail/'+ m.id +''}" class="item">
                   <img :src="m.images.medium" alt="加载失败">
                   <div class="right">
                       <h3 class="m-title">{{m.title}}</h3>
@@ -20,7 +21,7 @@
                       </div>
                       <span>豆瓣评分：{{m.rating.average}}</span>
                   </div>
-              </a>
+              </router-link>
           </div>
       </div>
       <!-- <header>
@@ -81,7 +82,7 @@ export default {
 .movieList > div {
   border-bottom: 1px solid #e6e6e6;
 }
-.movieList div a {
+.movieList div .item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -90,25 +91,28 @@ export default {
   box-sizing: border-box;
   color: #333333;
 }
-.movieList div a img {
+.movieList div .item img {
   width: 30%;
   margin-right: 1.5rem;
 }
-.movieList div a .right {
+.movieList div .item .right {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
 }
-.movieList div a .right h3,
-.movieList div a .right > div,
-.movieList div a .right > span {
+.movieList div .item .right h3,
+.movieList div .item .right > div,
+.movieList div .item .right > span {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-.movieList div a .right h3 {
+.movieList div .item .right h3 {
   margin-top: 0;
+  color: #cf4646;
+  font-size: 1.3rem;
 }
-.movieList div a .right .casts {
+.movieList div .item .right .casts {
   flex-wrap: wrap;
 }
 </style>
