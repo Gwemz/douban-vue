@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <router-view/>
     <Navbar></Navbar>
   </div>
@@ -29,6 +29,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #333333;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

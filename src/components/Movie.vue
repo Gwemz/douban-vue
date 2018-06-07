@@ -75,7 +75,7 @@ export default {
 
 <style scoped>
 .movieList {
-  margin: 3.3rem 0;
+  /* margin: 3.3rem 0; */
   display: flex;
   flex-direction: column;
 }
