@@ -1,5 +1,6 @@
 <template>
-  
+<div>
+  <Header></Header>
   <div class="movie">
       <div class="wrapper" ref="wrapper">
         <ul class="content movieList"> 
@@ -29,18 +30,22 @@
         </ul>
       </div>
       <loading v-show="isOpen" :isOpen="isOpen"></loading>
-      
       <!-- <header>
           欢迎来到豆瓣
       </header> -->
   </div>
+  <Navbar></Navbar>
+</div>
+  
 </template>
 <script>
+import Header from "./Header";
+import Navbar from "./Navbar";
 import loading from "./Loading";
 import BScroll from "better-scroll";
 export default {
   name: "movie",
-  components: { loading },
+  components: { loading, Header, Navbar },
   data() {
     return {
       isOpen: true,
@@ -75,10 +80,13 @@ export default {
           this.movieList = res.body.subjects;
           this.isOpen = false;
           setTimeout(function() {
+            const options = {
+              click: true,
+              taps: true
+            };
             let wrapper = document.querySelector(".wrapper");
-            console.log(wrapper);
-            this.scroll = new BScroll(wrapper, {});
-          }, 500);
+            this.scroll = new BScroll(wrapper, options);
+          }, 1000);
           // this.$nextTick(() => {
           //   this.scroll = new BScroll(this.$refs.wrapper, {});
           // });

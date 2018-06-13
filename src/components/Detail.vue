@@ -1,5 +1,10 @@
 <template>
-    <div class="container">
+<div>
+  <div class="container">
+      <div class="top">
+        <i class="el-icon-arrow-left" @click="$router.back(-1)"></i>
+        {{movie.title}}
+        </div>
         <div class="session-poster session-poster-spacing">
             <img class="poster" :src="movie.images.large" alt="">
         </div>
@@ -30,14 +35,26 @@
             </div>
         </div>
     </div>
+    <loading v-show="isOpen" :isOpen="isOpen"></loading>
+</div>
+    
 </template>
 <script>
+import loading from "./Loading";
 export default {
   name: "detail",
+  components: { loading },
   data() {
     return {
       id: "",
-      movie: {}
+      isOpen: true,
+      movie: {
+        images: {
+          large: "",
+          medium: "",
+          small: ""
+        }
+      }
     };
   },
   mounted() {
@@ -87,6 +104,7 @@ export default {
             tags: data.tags
           };
           this.movie = movie;
+          this.isOpen = false;
         });
     }
   }
@@ -100,6 +118,21 @@ export default {
   flex-direction: column;
   justify-content: center;
   padding-bottom: 60px;
+}
+.top {
+  width: 100%;
+  height: 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.top i{
+  position: absolute;
+  top:9px;
+  left:15px;
+  font-size:1.5rem;
 }
 .session-poster {
   display: flex;

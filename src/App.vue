@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <router-view/>
-    <Navbar></Navbar>
+    <!-- <Navbar></Navbar> -->
   </div>
 </template>
 
 <script>
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
+// import Header from "./components/Header";
+// import Navbar from "./components/Navbar";
 export default {
   name: "App",
-  components: { Header, Navbar }
+  // components: { Header, Navbar }
 };
 </script>
 
