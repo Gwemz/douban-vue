@@ -52,9 +52,6 @@ export default {
   mounted() {
     this.loadCityList();
     this.loadData(this.mType);
-    this.$nextTick(() => {
-     this.scroll = new BScroll(this.$refs.wrapper);
-    });
   },
   methods: {
     // 城市加载
@@ -79,8 +76,11 @@ export default {
           this.isOpen = false;
           // this._initScroll();
           console.log(this);
+          this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.wrapper);
+          });
         });
-    },
+    }
     // _initScroll() {
     //   this.moviewrapper = new BScroll(this.$refs.moviewrapper, {});
     // }
@@ -89,21 +89,22 @@ export default {
 </script>
 
 <style scoped>
-.wrapper{
-  /* overflow: hidden;
-  height: 100vh; */
+.movie {
   height: 90vh;
+}
+.wrapper {
+  height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 ul.movieList {
   /* margin: 3.3rem 0; */
-  /* display: flex;
-  flex-direction: column; */
+  display: block;
   padding: 0;
+  margin: 0;
+  padding-top:3rem;
 }
 .movieList > li {
+  display: block;
   border-bottom: 1px solid #e6e6e6;
 }
 .movieList li .item {
