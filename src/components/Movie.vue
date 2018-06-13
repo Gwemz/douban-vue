@@ -74,16 +74,16 @@ export default {
         .then(function(res) {
           this.movieList = res.body.subjects;
           this.isOpen = false;
-          // this._initScroll();
-          console.log(this);
-          this.$nextTick(() => {
-            this.scroll = new BScroll(this.$refs.wrapper);
-          });
+          setTimeout(function() {
+            let wrapper = document.querySelector(".wrapper");
+            console.log(wrapper);
+            this.scroll = new BScroll(wrapper, {});
+          }, 500);
+          // this.$nextTick(() => {
+          //   this.scroll = new BScroll(this.$refs.wrapper, {});
+          // });
         });
     }
-    // _initScroll() {
-    //   this.moviewrapper = new BScroll(this.$refs.moviewrapper, {});
-    // }
   }
 };
 </script>
@@ -101,7 +101,7 @@ ul.movieList {
   display: block;
   padding: 0;
   margin: 0;
-  padding-top:3rem;
+  /* padding-top: 3rem; */
 }
 .movieList > li {
   display: block;
