@@ -1,18 +1,9 @@
 <template>
   
   <div class="movie">
-      <div class="wrapper">
-        <ul class="content"> 
-            <li></li>
-            <li></li> 
-            <li></li>
-            <li></li> 
-        </ul>
-      </div>
-      <loading v-show="isOpen" :isOpen="isOpen"></loading>
-      <!-- 热映影片 -->
-      <div class="movieList">
-          <div v-for="m in movieList">
+      <div class="wrapper" ref="wrapper">
+        <ul class="content movieList"> 
+            <li v-for="m in movieList">
               <!-- <a :href="m.alt"> -->
               <router-link :to="{path:'/detail/'+ m.id +''}" class="item">
                   <img :src="m.images.medium" alt="加载失败">
@@ -31,8 +22,14 @@
                       <span>豆瓣评分：{{m.rating.average}}</span>
                   </div>
               </router-link>
-          </div>
+            </li>
+            <!-- <li>gfegeg</li> 
+            <li>gegeg</li>
+            <li>gegege</li>  -->
+        </ul>
       </div>
+      <loading v-show="isOpen" :isOpen="isOpen"></loading>
+      
       <!-- <header>
           欢迎来到豆瓣
       </header> -->
@@ -55,6 +52,9 @@ export default {
   mounted() {
     this.loadCityList();
     this.loadData(this.mType);
+    this.$nextTick(() => {
+     this.scroll = new BScroll(this.$refs.wrapper);
+    });
   },
   methods: {
     // 城市加载
@@ -77,26 +77,36 @@ export default {
         .then(function(res) {
           this.movieList = res.body.subjects;
           this.isOpen = false;
+          // this._initScroll();
+          console.log(this);
         });
     },
-    _initScroll() {
-      this.meunScroll = new BScroll(this.$refs.menuWrapper, {});
-      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {});
-    }
+    // _initScroll() {
+    //   this.moviewrapper = new BScroll(this.$refs.moviewrapper, {});
+    // }
   }
 };
 </script>
 
 <style scoped>
-.movieList {
-  /* margin: 3.3rem 0; */
+.wrapper{
+  /* overflow: hidden;
+  height: 100vh; */
+  height: 90vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-.movieList > div {
+ul.movieList {
+  /* margin: 3.3rem 0; */
+  /* display: flex;
+  flex-direction: column; */
+  padding: 0;
+}
+.movieList > li {
   border-bottom: 1px solid #e6e6e6;
 }
-.movieList div .item {
+.movieList li .item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -105,29 +115,29 @@ export default {
   box-sizing: border-box;
   color: #606266;
 }
-.movieList div .item img {
+.movieList li .item img {
   width: 30%;
   margin-right: 1.5rem;
 }
-.movieList div .item .right {
+.movieList li .item .right {
   display: flex;
   flex-direction: column;
   font-size: 1rem;
 }
-.movieList div .item .right h3,
-.movieList div .item .right > div,
-.movieList div .item .right > span {
+.movieList li .item .right h3,
+.movieList li .item .right > div,
+.movieList li .item .right > span {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-.movieList div .item .right h3 {
+.movieList li .item .right h3 {
   margin-top: 0;
   /* color: #cf4646; */
   color: #303133;
   font-size: 1.3rem;
 }
-.movieList div .item .right .casts {
+.movieList li .item .right .casts {
   flex-wrap: wrap;
 }
 </style>
