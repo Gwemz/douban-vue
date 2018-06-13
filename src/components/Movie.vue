@@ -131,7 +131,7 @@ ul.movieList {
 .movieList li .item .right {
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .movieList li .item .right h3,
 .movieList li .item .right > div,
@@ -144,7 +144,7 @@ ul.movieList {
   margin-top: 0;
   /* color: #cf4646; */
   color: #303133;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 .movieList li .item .right .casts {
   flex-wrap: wrap;

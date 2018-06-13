@@ -1,5 +1,6 @@
 <template>
 <div>
+  <loading v-show="isOpen" :isOpen="isOpen"></loading>
   <div class="container">
       <div class="top">
         <i class="el-icon-arrow-left" @click="$router.back(-1)"></i>
@@ -35,9 +36,7 @@
             </div>
         </div>
     </div>
-    <loading v-show="isOpen" :isOpen="isOpen"></loading>
 </div>
-    
 </template>
 <script>
 import loading from "./Loading";
@@ -46,8 +45,8 @@ export default {
   components: { loading },
   data() {
     return {
-      id: "",
       isOpen: true,
+      id: "",
       movie: {
         images: {
           large: "",
@@ -122,7 +121,7 @@ export default {
 .top {
   width: 100%;
   height: 3rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -130,9 +129,9 @@ export default {
 }
 .top i{
   position: absolute;
-  top:9px;
-  left:15px;
-  font-size:1.5rem;
+  top:.5rem;
+  left:1rem;
+  font-size:1.75rem;
 }
 .session-poster {
   display: flex;
@@ -168,7 +167,7 @@ export default {
 .movie-summary span {
   display: flex;
   flex-direction: row;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .movie-summary .name {
   width: 100%;
@@ -250,9 +249,10 @@ export default {
   color: #9e9e9e;
   font-size: 1.5rem;
   line-height: 42px;
+  font-weight: bold;
 }
 .desc-session .desc-wrapper {
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-indent: 2em;
   text-align: left;
 }
