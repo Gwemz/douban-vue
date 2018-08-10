@@ -28,12 +28,21 @@
         </div>
         <div class="director-casts-session">
             <span class="title">影人</span>
-            <div v-for="m in movie.directorsAndCasts">
+            <!-- <div v-for="(m,index) of movie.writers">
                 <div class="star">
                     <img :src="m.avatars.small" alt="">
                     <span class="name">{{m.name}}</span>
                 </div>
+            </div> -->
+            <div v-for="(item,index) of movie.writers">
+              <div class="star">
+                <img :src="item.avatars.medium">
+                <span class="name">{{item.name}}</span>
+              </div>
             </div>
+            <!-- <div v-for="(item,index) of movie.writers" :key="index">
+              <img :src="item.avatars[small]">
+            </div> -->
         </div>
     </div>
 </div>
@@ -52,6 +61,9 @@ export default {
           large: "",
           medium: "",
           small: ""
+        },
+        rating: {
+          average: ""
         }
       }
     };
@@ -100,7 +112,8 @@ export default {
             summary: data.summary,
             shareUrl: data.share_url,
             year: data.year,
-            tags: data.tags
+            tags: data.tags,
+            writers: data.writers
           };
           this.movie = movie;
           this.isOpen = false;
@@ -127,11 +140,11 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.top i{
+.top i {
   position: absolute;
-  top:.5rem;
-  left:1rem;
-  font-size:1.75rem;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 1.75rem;
 }
 .session-poster {
   display: flex;
