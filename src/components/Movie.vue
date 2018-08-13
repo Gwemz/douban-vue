@@ -119,6 +119,7 @@ export default {
 .wrapper {
   height: 100%;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 ul.movieList {
   /* margin: 3.3rem 0; */
