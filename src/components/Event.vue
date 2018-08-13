@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Header></Header>
+  <!-- <Header></Header> -->
   <div class="event">
       这是一个关于同城活动的页面
   </div>
@@ -15,6 +15,14 @@ import loading from "./Loading";
 export default {
   name: "movie",
   components: { loading, Header, Navbar }
-}
+};
 </script>
+<style scoped>
+.event {
+  line-height: 40px;
+  font-size: 14px;
+  text-indent: 2em;
+  color: #cf4646;
+}
+</style>
 

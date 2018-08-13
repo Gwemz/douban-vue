@@ -1,12 +1,24 @@
 <template>
 <el-alert
-    title="豆瓣"
+    title="正在热映电影"
     type="error">
+    <span class="select" @click="citychange">{{cityname}}</span>
   </el-alert>
-  <!-- <header class="header">
-      豆瓣
-  </header> -->
 </template>
+<script>
+export default {
+  name: "Header",
+  props:{
+    cityname: String
+  },
+  methods:{
+    citychange(){
+      this.$emit('showcitylist',true)
+    }
+  }
+};
+</script>
+
 <style scoped>
 header {
   position: fixed;
@@ -22,6 +34,11 @@ header {
   align-items: center;
   justify-content: center;
   background: #cf4646;
+}
+.select {
+  margin-left: 3rem;
+  font-size:1rem;
+  font-weight: bold;
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Header></Header>
+  <Header @showcitylist="showCitySelect" :cityname="cityName"></Header>
   <div class="movie">
       <div class="wrapper" ref="wrapper">
         <ul class="content movieList"> 
@@ -11,15 +11,8 @@
                   <div class="right">
                       <h3 class="m-title">{{m.title}}</h3>
                       <div class="directors">导演：{{m.directors[0].name}}</div>
-                      <div class="casts">
-                          主演：<span v-for="l in m.casts">{{l.name}}、</span>
-                      </div>  
-                      <div class="genres">
-                          类型：
-                          <span v-for="g in m.genres">
-                              {{g}}/
-                          </span>
-                      </div>
+                      <div class="casts">主演：<span v-for="l of m.casts">{{l.name}}<i>、</i></span></div>  
+                      <div class="genres">类型：<span v-for="g of m.genres">{{g}}<i>/</i></span></div>
                       <span>豆瓣评分：{{m.rating.average}}</span>
                   </div>
               </router-link>
@@ -35,28 +28,37 @@
       </header> -->
   </div>
   <Navbar></Navbar>
+  <area-select :list="cityList" :show="showcity" @cityarea="citySelect"></area-select>
 </div>
-  
 </template>
 <script>
 import Header from "./Header";
 import Navbar from "./Navbar";
 import loading from "./Loading";
-import BScroll from "better-scroll";
+import AreaSelect from "./AreaSelect";
+// import BScroll from "better-scroll";
 export default {
   name: "movie",
-  components: { loading, Header, Navbar },
+  components: { 
+    loading: loading, 
+    Header: Header, 
+    Navbar: Navbar,
+    AreaSelect: AreaSelect
+  },
   data() {
     return {
       isOpen: true,
       mType: "in_theaters",
       cityList: [],
-      movieList: []
+      movieList: [],
+      showcity:false,
+      cityarea:'108288',
+      cityName: '北京'
     };
   },
   mounted() {
     this.loadCityList();
-    this.loadData(this.mType);
+    this.loadData(this.cityarea,this.mType);
   },
   methods: {
     // 城市加载
@@ -68,11 +70,13 @@ export default {
         });
     },
     // 电影数据加载
-    loadData(type) {
+    loadData(cityarea,type) {
       this.$http
         .jsonp("https://api.douban.com/v2/movie/" + type + "", {
           params: {
-            city: "108288", //北京地区编码
+            apikey: "0b2bdeda43b5688921839c8ecb20399b",
+            city: cityarea, //北京地区编码
+            start: 0,
             count: 100
           }
         })
@@ -84,13 +88,25 @@ export default {
               click: true,
               taps: true
             };
-            let wrapper = document.querySelector(".wrapper");
-            this.scroll = new BScroll(wrapper, options);
           }, 1000);
-          // this.$nextTick(() => {
-          //   this.scroll = new BScroll(this.$refs.wrapper, {});
-          // });
         });
+    },
+    showCitySelect(msg){
+      if(msg){
+        this.showcity = msg;
+      }
+    },
+    citySelect(msg){
+      if(msg.id){
+        this.cityarea = msg.id
+        this.showcity = msg.show
+        this.cityName = msg.name
+        this.isOpen = true;
+        this.movieList = [];
+        this.loadData(this.cityarea,this.mType);
+      }else{
+        this.showcity = msg.show
+      }
     }
   }
 };
@@ -102,7 +118,7 @@ export default {
 }
 .wrapper {
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 ul.movieList {
   /* margin: 3.3rem 0; */
@@ -132,6 +148,7 @@ ul.movieList {
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
+  line-height: 2rem;
 }
 .movieList li .item .right h3,
 .movieList li .item .right > div,
@@ -145,6 +162,8 @@ ul.movieList {
   /* color: #cf4646; */
   color: #303133;
   font-size: 1.5rem;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 .movieList li .item .right .casts {
   flex-wrap: wrap;
