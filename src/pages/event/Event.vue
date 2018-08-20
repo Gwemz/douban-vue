@@ -9,12 +9,12 @@
   
 </template>
 <script>
-import Header from "./Header";
-import Navbar from "./Navbar";
-import loading from "./Loading";
+// import Header from "./Header";
+import Navbar from "../components/Navbar";
+import loading from "../components/Loading";
 export default {
-  name: "movie",
-  components: { loading, Header, Navbar }
+  name: "event",
+  components: { loading, Navbar }
 };
 </script>
 <style scoped>

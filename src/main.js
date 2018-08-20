@@ -7,9 +7,12 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import 'styles/reset.css'
+import 'styles/border.css'
+import fastClick from 'fastClick'
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
+fastClick.attach(document.body)
 
 Vue.config.productionTip = false
 

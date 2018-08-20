@@ -48,7 +48,7 @@
 </div>
 </template>
 <script>
-import loading from "./Loading";
+import loading from "../components/Loading";
 export default {
   name: "detail",
   components: { loading },

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Movie from '@/components/Movie'
-import Event from '@/components/Event'
-import About from '@/components/About'
-import Detail from '@/components/Detail'
+import Movie from '@/pages/movie/Movie'
+import Event from '@/pages/event/Event'
+import About from '@/pages/about/About'
+import Detail from '@/pages/detail/Detail'
 
 Vue.use(Router)
 

@@ -32,11 +32,11 @@
 </div>
 </template>
 <script>
-import Header from "./Header";
-import Navbar from "./Navbar";
-import loading from "./Loading";
-import AreaSelect from "./AreaSelect";
-// import BScroll from "better-scroll";
+import Header from "./components/header";
+import Navbar from "../components/Navbar";
+import loading from "../components/Loading";
+import AreaSelect from "./components/AreaSelect";
+import Bscroll from "better-scroll";
 export default {
   name: "movie",
   components: { 
@@ -83,7 +83,9 @@ export default {
         .then(function(res) {
           this.movieList = res.body.subjects;
           this.isOpen = false;
+          let that = this;
           setTimeout(function() {
+            that.scroll = new Bscroll(that.$refs.wrapper)
             const options = {
               click: true,
               taps: true
@@ -114,7 +116,14 @@ export default {
 
 <style scoped>
 .movie {
-  height: 90vh;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+  background: #ffffff;
+  overflow: hidden;
+  /* height: 90vh; */
 }
 .wrapper {
   height: 100%;
@@ -122,11 +131,9 @@ export default {
   -webkit-overflow-scrolling: touch;
 }
 ul.movieList {
-  /* margin: 3.3rem 0; */
   display: block;
   padding: 0;
   margin: 0;
-  /* padding-top: 3rem; */
 }
 .movieList > li {
   display: block;
@@ -160,7 +167,6 @@ ul.movieList {
 }
 .movieList li .item .right h3 {
   margin-top: 0;
-  /* color: #cf4646; */
   color: #303133;
   font-size: 1.5rem;
   flex-direction: row;
