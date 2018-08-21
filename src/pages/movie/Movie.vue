@@ -4,28 +4,22 @@
   <div class="movie">
       <div class="wrapper" ref="wrapper">
         <ul class="content movieList"> 
-            <li v-for="m in movieList">
+            <li v-for="m of movieList" :key="m.id">
               <!-- <a :href="m.alt"> -->
               <router-link :to="{path:'/detail/'+ m.id +''}" class="item">
-                  <img :src="m.images.medium" alt="加载失败">
+                  <img :src="m.images" alt="加载失败">
                   <div class="right">
                       <h3 class="m-title">{{m.title}}</h3>
-                      <div class="directors">导演：{{m.directors[0].name}}</div>
-                      <div class="casts">主演：<span v-for="l of m.casts">{{l.name}}<i>、</i></span></div>  
-                      <div class="genres">类型：<span v-for="g of m.genres">{{g}}<i>/</i></span></div>
+                      <div class="directors">导演：{{m.directors}}</div>
+                      <div class="casts">主演：{{m.casts}}</div>  
+                      <div class="genres">类型：{{m.genres}}</div>
                       <span>豆瓣评分：{{m.rating.average}}</span>
                   </div>
               </router-link>
             </li>
-            <!-- <li>gfegeg</li> 
-            <li>gegeg</li>
-            <li>gegege</li>  -->
         </ul>
       </div>
       <loading v-show="isOpen" :isOpen="isOpen"></loading>
-      <!-- <header>
-          欢迎来到豆瓣
-      </header> -->
   </div>
   <Navbar></Navbar>
   <area-select :list="cityList" :show="showcity" @cityarea="citySelect"></area-select>
@@ -51,7 +45,7 @@ export default {
       mType: "in_theaters",
       cityList: [],
       movieList: [],
-      showcity:false,
+      showcity: false,
       cityarea:'108288',
       cityName: '北京'
     };
@@ -81,7 +75,40 @@ export default {
           }
         })
         .then(function(res) {
-          this.movieList = res.body.subjects;
+          let data = res.body.subjects;
+          let movieList = [];
+          for(let i in data){
+            // 导演
+            let directors = '';
+            let casts = '';
+            let genres = '';
+            data[i].directors.forEach(function(i){
+              directors += i.name + '、'
+            })
+            directors = directors.slice(0,-1)
+
+            data[i].casts.forEach(function(i){
+              casts += i.name + '、'
+            })
+            casts = casts.slice(0,-1)
+
+            data[i].genres.forEach(function(i){
+              genres += i + '/'
+            })
+            genres = genres.slice(0,-1)
+            let obj = {
+              id: data[i].id,
+              images: data[i].images.medium,
+              title: data[i].title,
+              directors: directors,
+              casts: casts,
+              genres: genres,
+              rating: data[i].rating
+            }
+            movieList.push(obj)
+          }
+          // this.movieList = res.body.subjects;
+          this.movieList = movieList;
           this.isOpen = false;
           let that = this;
           setTimeout(function() {
@@ -114,65 +141,53 @@ export default {
 };
 </script>
 
-<style scoped>
-.movie {
-  position: absolute;
-  top: 2.5rem;
-  left: 0;
-  right: 0;
-  bottom: 2rem;
-  background: #ffffff;
-  overflow: hidden;
-  /* height: 90vh; */
-}
-.wrapper {
-  height: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-ul.movieList {
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-.movieList > li {
-  display: block;
-  border-bottom: 1px solid #e6e6e6;
-}
-.movieList li .item {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  text-decoration: none;
-  padding: 1rem;
-  box-sizing: border-box;
-  color: #606266;
-}
-.movieList li .item img {
-  width: 30%;
-  margin-right: 1.5rem;
-}
-.movieList li .item .right {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
-  line-height: 2rem;
-}
-.movieList li .item .right h3,
-.movieList li .item .right > div,
-.movieList li .item .right > span {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-.movieList li .item .right h3 {
-  margin-top: 0;
-  color: #303133;
-  font-size: 1.5rem;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-.movieList li .item .right .casts {
-  flex-wrap: wrap;
-}
+<style lang="stylus" scoped>
+  .movie
+    position: absolute
+    top: 2.5rem
+    left: 0
+    right: 0
+    bottom: 2rem
+    background: #ffffff
+    overflow: hidden
+    .wrapper
+      height: 100%
+      overflow-y: scroll
+      .movieList
+        display: block
+        padding: 0
+        margin: 0
+        li
+          display: block
+          border-bottom: 1px solid #e6e6e6
+          .item
+            display: flex
+            flex-direction: row
+            align-items: flex-start
+            text-decoration: none
+            padding: 1rem
+            box-sizing: border-box
+            color: #606266
+            img
+              width: 30%
+              margin-right: 1.5rem
+            .right
+              display: flex
+              flex-direction: column
+              font-size: 1.2rem
+              line-height: 2rem
+              h3
+                margin-top: 0
+                color: #303133
+                font-size: 1.5rem
+                flex-direction: row
+                justify-content: flex-start
+              h3
+              div
+              span
+                display: flex
+                flex-direction: row
+                justify-content: flex-start
+              .casts
+                flex-wrap: wrap;  
 </style>

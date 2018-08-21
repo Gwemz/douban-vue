@@ -1,9 +1,15 @@
 <template>
-<el-alert
+<!-- <el-alert
     title="正在热映电影"
     type="error">
     <span class="select" @click="citychange">{{cityname}}</span>
-  </el-alert>
+  </el-alert> -->
+  <div>
+    <header>
+      正在热映电影
+      <span class="select" @click="citychange">{{cityname}}</span>
+    </header>
+  </div>
 </template>
 <script>
 export default {
@@ -33,9 +39,12 @@ export default {
     flex-direction: row
     align-items: center
     justify-content: center
-    background: #cf4646
+    background: #f56c6c
+    font-size: 1rem
+    position: relative
     .select
-      margin-left: 3rem
+      position: absolute
+      right: 3rem
       font-size:1rem
       font-weight: bold
 </style>
