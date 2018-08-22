@@ -30,6 +30,7 @@ import Header from "./components/header";
 import Navbar from "../components/Navbar";
 import loading from "../components/Loading";
 import AreaSelect from "./components/AreaSelect";
+import axios from "axios";
 import Bscroll from "better-scroll";
 export default {
   name: "movie",
@@ -57,6 +58,13 @@ export default {
   methods: {
     // 城市加载
     loadCityList() {
+      // axios.get('/api/loc/list',{
+      //   params: {
+      //     count: 48
+      //   }
+      // }).then((data) => {
+      //   console.log(data)
+      // })
       this.$http
         .jsonp("https://api.douban.com/v2/loc/list", { params: { count: 48 } })
         .then(function(res) {
@@ -65,60 +73,59 @@ export default {
     },
     // 电影数据加载
     loadData(cityarea,type) {
-      this.$http
-        .jsonp("https://api.douban.com/v2/movie/" + type + "", {
-          params: {
-            apikey: "0b2bdeda43b5688921839c8ecb20399b",
-            city: cityarea, //北京地区编码
-            start: 0,
-            count: 100
-          }
+      axios.get('/api/movie/'+ type +'',{
+        params: {
+          apikey: "0b2bdeda43b5688921839c8ecb20399b",
+          city: cityarea, //北京地区编码
+          start: 0,
+          count: 100
+        }
+      }).then(this.handleMovieInfoSucc)
+    },
+    handleMovieInfoSucc(res){
+      let data = res.data.subjects;
+      let movieList = [];
+      for(let i in data){
+        // 导演
+        let directors = '';
+        let casts = '';
+        let genres = '';
+        data[i].directors.forEach(function(i){
+          directors += i.name + '、'
         })
-        .then(function(res) {
-          let data = res.body.subjects;
-          let movieList = [];
-          for(let i in data){
-            // 导演
-            let directors = '';
-            let casts = '';
-            let genres = '';
-            data[i].directors.forEach(function(i){
-              directors += i.name + '、'
-            })
-            directors = directors.slice(0,-1)
+        directors = directors.slice(0,-1)
 
-            data[i].casts.forEach(function(i){
-              casts += i.name + '、'
-            })
-            casts = casts.slice(0,-1)
+        data[i].casts.forEach(function(i){
+          casts += i.name + '、'
+        })
+        casts = casts.slice(0,-1)
 
-            data[i].genres.forEach(function(i){
-              genres += i + '/'
-            })
-            genres = genres.slice(0,-1)
-            let obj = {
-              id: data[i].id,
-              images: data[i].images.medium,
-              title: data[i].title,
-              directors: directors,
-              casts: casts,
-              genres: genres,
-              rating: data[i].rating
-            }
-            movieList.push(obj)
-          }
-          // this.movieList = res.body.subjects;
-          this.movieList = movieList;
-          this.isOpen = false;
-          let that = this;
-          setTimeout(function() {
-            that.scroll = new Bscroll(that.$refs.wrapper)
-            const options = {
-              click: true,
-              taps: true
-            };
-          }, 1000);
-        });
+        data[i].genres.forEach(function(i){
+          genres += i + ' / '
+        })
+        genres = genres.slice(0,-2)
+        let obj = {
+          id: data[i].id,
+          images: data[i].images.medium,
+          title: data[i].title,
+          directors: directors,
+          casts: casts,
+          genres: genres,
+          rating: data[i].rating
+        }
+        movieList.push(obj)
+      }
+      // this.movieList = res.body.subjects;
+      this.movieList = movieList;
+      this.isOpen = false;
+      let that = this;
+      setTimeout(function() {
+        that.scroll = new Bscroll(that.$refs.wrapper)
+        const options = {
+          click: true,
+          taps: true
+        };
+      }, 1000);
     },
     showCitySelect(msg){
       if(msg){
