@@ -73,17 +73,26 @@ export default {
     },
     // 电影数据加载
     loadData(cityarea,type) {
-      axios.get('/api/movie/'+ type +'',{
-        params: {
-          apikey: "0b2bdeda43b5688921839c8ecb20399b",
-          city: cityarea, //北京地区编码
-          start: 0,
-          count: 100
-        }
-      }).then(this.handleMovieInfoSucc)
+      this.$http
+        .jsonp('https://api.douban.com/v2/movie/'+ type +'',{
+          params: {
+            apikey: "0b2bdeda43b5688921839c8ecb20399b",
+            city: cityarea, //北京地区编码
+            start: 0,
+            count: 10
+          }
+        }).then(this.handleMovieInfoSucc)
+      // axios.get('/api/movie/'+ type +'',{
+      //   params: {
+      //     apikey: "0b2bdeda43b5688921839c8ecb20399b",
+      //     city: cityarea, //北京地区编码
+      //     start: 0,
+      //     count: 100
+      //   }
+      // }).then(this.handleMovieInfoSucc)
     },
     handleMovieInfoSucc(res){
-      let data = res.data.subjects;
+      let data = res.body.subjects;
       let movieList = [];
       for(let i in data){
         // 导演
@@ -106,6 +115,7 @@ export default {
         genres = genres.slice(0,-2)
         let obj = {
           id: data[i].id,
+          // images: data[i].images.medium?'https://images.weserv.nl/?url='+data[i].images.medium :'',
           images: data[i].images.medium,
           title: data[i].title,
           directors: directors,
@@ -125,7 +135,7 @@ export default {
           click: true,
           taps: true
         };
-      }, 1000);
+      }, 1500);
     },
     showCitySelect(msg){
       if(msg){

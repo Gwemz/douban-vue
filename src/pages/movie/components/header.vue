@@ -1,13 +1,12 @@
 <template>
-<!-- <el-alert
-    title="正在热映电影"
-    type="error">
-    <span class="select" @click="citychange">{{cityname}}</span>
-  </el-alert> -->
   <div>
     <header>
-      正在热映电影
       <span class="select" @click="citychange">{{cityname}}</span>
+      正在热映电影
+      <span class="search">
+        搜索
+        <i class="el-icon-search"></i>
+        </span>
     </header>
   </div>
 </template>
@@ -44,7 +43,11 @@ export default {
     position: relative
     .select
       position: absolute
-      right: 3rem
+      left: 3rem
       font-size:1rem
       font-weight: bold
+    .search
+      position: absolute
+      right: 3rem
+      font-size: 1rem
 </style>

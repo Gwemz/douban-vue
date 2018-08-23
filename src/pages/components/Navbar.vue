@@ -2,15 +2,15 @@
   <div class="navbar">
     <router-link to="/movie">
         <i class="el-icon-service"></i>
-        热映影片
+        正在热映
     </router-link>
     <router-link to="/event">
         <i class="el-icon-star-off"></i>
-        同城活动
+        即将上映
     </router-link>
     <router-link to="/about">
         <i class="el-icon-share"></i>
-        关于豆瓣
+        Top250
     </router-link>
   </div>
 </template>
